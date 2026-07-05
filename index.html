@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect With Me</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c20 0%, #15102a 50%, #06040a 100%);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Container Design */
+        .landing-container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        /* Image Gallery (3 Columns) */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .image-gallery img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 75, 110, 0.3);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.03);
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 24px;
+            color: #ff4b6e;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        p.intro {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #e0e0e0;
+            margin-bottom: 25px;
+        }
+
+        /* Info Section */
+        .info-box {
+            background: rgba(255, 75, 110, 0.05);
+            border-left: 4px solid #ff4b6e;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .info-box h3 {
+            font-size: 16px;
+            color: #ff4b6e;
+            margin-bottom: 10px;
+        }
+
+        .info-box ul {
+            list-style: none;
+        }
+
+        .info-box ul li {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #d1d1d1;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-box ul li::before {
+            content: "✨";
+            margin-right: 8px;
+        }
+
+        /* Notice / Urgency Text */
+        .notice-text {
+            font-size: 14px;
+            color: #a5a5a5;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        .notice-text strong {
+            color: #ff4b6e;
+        }
+
+        /* Action Button */
+        .cta-button {
+            display: inline-block;
+            width: 100%;
+            padding: 18px 20px;
+            background: linear-gradient(90deg, #ff4b72 0%, #ff2a54 100%);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(255, 42, 84, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255, 42, 84, 0.6);
+        }
+
+        /* Button Animation */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 8px 25px rgba(255, 42, 84, 0.4);
+            }
+            50% {
+                transform: scale(1.02);
+                box-shadow: 0 8px 35px rgba(255, 42, 84, 0.7);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 8px 25px rgba(255, 42, 84, 0.4);
+            }
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 400px) {
+            .image-gallery img {
+                height: 170px;
+            }
+            h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="landing-container">
+        
+        <div class="image-gallery">
+            <img src="rsd1.webp" alt="Model Picture 1">
+            <img src="rsd2.webp" alt="Model Picture 2">
+            <img src="rsd3.webp" alt="Model Picture 3">
+        </div>
+
+        <h1>Hey! Thanks for coming over from Locanto ❤️</h1>
+        <p class="intro">
+            I’m so glad you checked out my post. I love meeting open-minded people, and I’m ready to give you an unforgettable, sweet, and intimate experience.
+        </p>
+
+        <div class="info-box">
+            <h3>My Rates & Offers:</h3>
+            <ul>
+                <li><strong>My Rates:</strong> $150 (1 Hour) | $250 (2 Hours)</li>
+                <li><strong>What I Offer:</strong> Sweet companionship & 100% privacy</li>
+                <li><strong>No Rush, No Drama:</strong> Just a fun, relaxed time together</li>
+            </ul>
+        </div>
+
+        <p class="notice-text">
+            To keep things safe and private for both of us, I don't share my phone number publicly. I am online right now in my <strong>Private Chatroom</strong>. It is <strong>100% FREE to register</strong>. Once you sign up, you will instantly connect with me so we can plan exactly when and where to meet!
+        </p>
+
+        <a href="YOUR_AFFILIATE_LINK_HERE" class="cta-button">
+            💋 Chat With Me For Free Now
+        </a>
+
+    </div>
+
+</body>
+</html>
