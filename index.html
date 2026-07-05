@@ -38,17 +38,20 @@
             position: relative;
         }
 
-        /* Custom Locanto Logo */
-        .locanto-logo {
-            font-size: 32px;
+        /* Updated Locanto Heading Mix */
+        .locanto-heading {
+            font-size: 26px;
             font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+            margin-bottom: 25px;
             display: inline-block;
+            line-height: 1.3;
         }
-        .locanto-logo .lo { color: #2196F3; } /* নীল */
-        .locanto-logo .can { color: #FFB74D; } /* হালকা অরেঞ্জ */
-        .locanto-logo .to { color: #FF6D00; } /* ডিপ অরেঞ্জ */
+        .locanto-heading .side-text-left { color: #2196F3; } /* বামের লেখা নীল */
+        .locanto-heading .side-text-right { color: #FF6D00; } /* ডানের লেখা ডিপ অরেঞ্জ */
+        .locanto-heading .lo { color: #2196F3; } 
+        .locanto-heading .can { color: #FFB74D; } 
+        .locanto-heading .to { color: #FF6D00; } 
 
         /* Image Gallery (3 Columns) */
         .image-gallery {
@@ -108,11 +111,7 @@
             line-height: 1.4;
         }
 
-        .info-box ul li strong {
-            color: #fff;
-        }
-
-        /* Notice / Urgency Text */
+        /* Notice Text */
         .notice-text {
             font-size: 14px;
             color: #e0e0e0;
@@ -150,24 +149,23 @@
             animation: bouncePopup 2.5s infinite ease-in-out;
         }
 
-        /* Continuous Attractive Popup/Bounce Animation */
         @keyframes bouncePopup {
             0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 8px 25px rgba(255, 42, 84, 0.4); }
             50% { transform: translateY(-6px) scale(1.03); box-shadow: 0 15px 30px rgba(255, 42, 84, 0.7); }
         }
 
-        /* Click Shock/Movement Effect */
+        /* Click Movement Effect */
         .cta-button.clicked {
             animation: buttonShock 0.2s ease-in-out;
         }
 
         @keyframes buttonShock {
-            0% { transform: scale(0.95) cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-            50% { transform: translateX(-5px) cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-            100% { transform: translateX(5px) cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+            0% { transform: scale(0.95); }
+            50% { transform: translateX(-5px); }
+            100% { transform: translateX(5px); }
         }
 
-        /* Fake Loading Screen (Hidden by Default) */
+        /* Fake Loading Screen Overlay */
         .loading-screen {
             display: none;
             position: absolute;
@@ -175,7 +173,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #0f0c20; /* Same as landing page background */
+            background: #0f0c20;
             border-radius: 24px;
             z-index: 10;
             flex-direction: column;
@@ -186,14 +184,14 @@
 
         /* Film Style Spinner Buffer */
         .spinner {
-            width: 70px;
-            height: 70px;
+            width: 65px;
+            height: 65px;
             border: 6px double rgba(255, 75, 110, 0.2);
             border-top: 6px solid #ff4b6e;
             border-bottom: 6px solid #ff2a54;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             box-shadow: 0 0 15px rgba(255, 75, 110, 0.4);
         }
 
@@ -202,13 +200,13 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Corrected Professional Loading Text */
         .loading-text {
             font-size: 16px;
             color: #e0e0e0;
             line-height: 1.5;
             font-weight: 500;
             letter-spacing: 0.5px;
+            margin-bottom: 25px;
         }
         .loading-text span {
             display: block;
@@ -217,17 +215,37 @@
             margin-top: 8px;
         }
 
+        /* Fake Buffing Image Slider Layout */
+        .buffer-slider-container {
+            width: 200px;
+            height: 250px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #ff4b6e;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .buffer-slider-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        .buffer-slider-container img.active {
+            opacity: 1;
+        }
+
         /* Mobile Optimization */
         @media (max-width: 400px) {
-            .image-gallery img {
-                height: 170px;
-            }
-            .locanto-logo {
-                font-size: 28px;
-            }
-            .cta-button {
-                font-size: 16px;
-            }
+            .image-gallery img { height: 170px; }
+            .locanto-heading { font-size: 21px; }
+            .cta-button { font-size: 16px; }
         }
     </style>
 </head>
@@ -238,15 +256,23 @@
         <!-- Fake Loading Overlay Container -->
         <div class="loading-screen" id="loadingScreen">
             <div class="spinner"></div>
+            
             <div class="loading-text">
                 Free Sign-Up Page Loading...
                 <span>Please complete some steps to connect.</span>
             </div>
+
+            <!-- 2-Second Slider Images Displayed Under Text During Buffering -->
+            <div class="buffer-slider-container">
+                <img src="rsd1.webp" alt="Slider 1" class="slider-img active">
+                <img src="rsd2.webp" alt="Slider 2" class="slider-img">
+                <img src="rsd3.webp" alt="Slider 3" class="slider-img">
+            </div>
         </div>
 
-        <!-- Locanto Style Styled Logo -->
-        <div class="locanto-logo">
-            <span class="lo">Lo</span><span class="can">can</span><span class="to">to</span>
+        <!-- Locanto Matching Combination Heading Design -->
+        <div class="locanto-heading">
+            <span class="side-text-left">I am </span><span class="lo">Lo</span><span class="can">can</span><span class="to">to</span><span class="side-text-right"> Escort</span>
         </div>
         
         <div class="image-gallery">
@@ -295,21 +321,31 @@
         function startLoading() {
             const btn = document.getElementById('msgButton');
             const loadingScreen = document.getElementById('loadingScreen');
+            const sliderImages = document.querySelectorAll('.slider-img');
             
-            // ১. বাটনে ক্লিক শক/মুভমেন্ট অ্যানিমেশন অ্যাড করা হলো
+            // ১. বাটনে ক্লিক মুভমেন্ট অ্যানিমেশন সক্রিয় করা হলো
             btn.classList.add('clicked');
             
-            // ২. সাথে সাথে বাটন মুভমেন্ট শেষ হলে নেক্সট (ফেক লোডিং) পেজ আসবে
+            // ২. বাটন মুভমেন্ট শেষ হলে সাথে সাথে ফেক বাফিং স্ক্রিন আসবে
             setTimeout(() => {
                 loadingScreen.style.display = 'flex';
                 
-                // ৩. ২ সেকেন্ড পর থেকে ব্যাকগ্রাউন্ডে অ্যাফিলিয়েট লিংক ওপেন হওয়া শুরু হবে
+                // ৩. ২ সেকেন্ডের ভেতর ছবি ৩টি একটার পর একটা স্লাইড করার লজিক (৫০০ms পর পর চেঞ্জ)
+                let currentIdx = 0;
+                const slideInterval = setInterval(() => {
+                    sliderImages[currentIdx].classList.remove('active');
+                    currentIdx = (currentIdx + 1) % sliderImages.length;
+                    sliderImages[currentIdx].classList.add('active');
+                }, 500); // প্রতি ০.৫ সেকেন্ডে ছবি চেঞ্জ হবে, ফলে ২ সেকেন্ডে ৩টি ছবি সুন্দরভাবে স্লাইড হবে
+                
+                // ৪. ঠিক ২ সেকেন্ড (২০০০ মিলিসেকেন্ড) পর অ্যাফিলিয়েট লিংক ওপেন হওয়া শুরু হবে
                 setTimeout(() => {
+                    clearInterval(slideInterval); // স্লাইডার বন্ধ করা
                     // এখানে আপনার আসল অ্যাফিলিয়েট লিংকটি বসাবেন
                     window.location.href = "YOUR_AFFILIATE_LINK_HERE";
-                }, 2000); // ২ সেকেন্ড (২০০০ মিলিসেকেন্ড) ফেক বাফিং হোল্ড করবে
+                }, 2000);
                 
-            }, 200); // বাটন কাঁপার জন্য সামান্য সময় দেওয়া হয়েছে
+            }, 200); 
         }
     </script>
 
