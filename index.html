@@ -73,6 +73,7 @@
             border: 2px solid rgba(255, 75, 110, 0.3);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
+            cursor: pointer;
         }
 
         .image-gallery img:hover {
@@ -169,20 +170,69 @@
             100% { transform: translateX(5px); }
         }
 
-        /* Fake Loading Screen Overlay (Fixed & Non-Scrollable Solid Page) */
-        .loading-screen {
+        /* Full Display Image Viewer Overly */
+        .fullscreen-viewer {
             display: none;
-            position: fixed; /* পেজ ফিক্সড এবং স্ক্রোল লক রাখার জন্য */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: linear-gradient(135deg, #0f0c20 0%, #15102a 50%, #06040a 100%); /* সেম ব্যাকগ্রাউন্ড */
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .fullscreen-viewer img {
+            max-width: 95%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            transition: transform 0.3s ease;
+        }
+
+        /* Back Arrow Button styling */
+        .back-arrow-btn {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: background 0.2s;
+            z-index: 10001;
+        }
+        .back-arrow-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Fake Loading Screen Overlay (Fixed & Non-Scrollable Solid Page) */
+        .loading-screen {
+            display: none;
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #0f0c20 0%, #15102a 50%, #06040a 100%); 
             z-index: 9999;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* স্ক্রোল টোটালি বন্ধ */
+            overflow: hidden; 
         }
 
         /* Loading Content Centered Wrapper */
@@ -263,10 +313,17 @@
             .locanto-heading { font-size: 21px; }
             .cta-button { font-size: 16px; }
             .buffer-slider-container { width: 180px; height: 220px; }
+            .back-arrow-btn { top: 15px; left: 15px; width: 40px; height: 40px; font-size: 20px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Full Screen Image Viewer Modal Overlay -->
+    <div class="fullscreen-viewer" id="photoViewer" onclick="closePhoto()">
+        <button class="back-arrow-btn" onclick="event.stopPropagation(); closePhoto();">➔</button>
+        <img id="fullImg" src="" alt="Full Display View">
+    </div>
 
     <!-- Fake Loading Overlay Container (Solid & Non-scrollable) -->
     <div class="loading-screen" id="loadingScreen">
@@ -298,10 +355,11 @@
             <span class="side-text-left">I am </span><span class="lo">Lo</span><span class="can">can</span><span class="to">to</span><span class="side-text-right"> Escort</span>
         </div>
         
+        <!-- Image Gallery with Click/Touch Handler -->
         <div class="image-gallery">
-            <img src="rsd1.webp" alt="Model Picture 1">
-            <img src="rsd2.webp" alt="Model Picture 2">
-            <img src="rsd3.webp" alt="Model Picture 3">
+            <img src="rsd1.webp" alt="Model Picture 1" onclick="openPhoto(this.src)">
+            <img src="rsd2.webp" alt="Model Picture 2" onclick="openPhoto(this.src)">
+            <img src="rsd3.webp" alt="Model Picture 3" onclick="openPhoto(this.src)">
         </div>
 
         <p class="intro">
@@ -341,20 +399,33 @@
     </div>
 
     <script>
+        // ১. ছবি ফুল স্ক্রিন ওপেন করার লজিক
+        function openPhoto(src) {
+            const viewer = document.getElementById('photoViewer');
+            const fullImg = document.getElementById('fullImg');
+            fullImg.src = src;
+            viewer.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // মেইন পেজ স্ক্রোল হওয়া অফ রাখবে
+        }
+
+        // ২. ছবি বন্ধ করে আগের জায়গায় ফিরে যাওয়ার লজিক (যেকোনো জায়গায় টাচ করলেই কাজ করবে)
+        function closePhoto() {
+            document.getElementById('photoViewer').style.display = 'none';
+            document.body.style.overflow = 'auto'; // স্ক্রোল আবার সচল করবে
+        }
+
+        // ৩. মেসেজ বাটন ক্লিক ও বাফারিং পেজের কোড
         function startLoading() {
             const btn = document.getElementById('msgButton');
             const loadingScreen = document.getElementById('loadingScreen');
             const sliderImages = document.querySelectorAll('.slider-img');
             
-            // ১. বাটনে ক্লিক শক/মুভমেন্ট অ্যাকশন ক্লাস অ্যাড
             btn.classList.add('clicked');
             
-            // ২. বাটনের মুভমেন্ট শেষ হতে না হতেই ফেক বাফিং স্ক্রিন পপআপ হবে
             setTimeout(() => {
                 loadingScreen.style.display = 'flex';
-                document.body.style.overflow = 'hidden'; // বডির স্ক্রোল টোটালি ব্লক
+                document.body.style.overflow = 'hidden'; 
                 
-                // ৩. ইমেজ স্লাইডার ইন্টিগ্রেশন (প্রতি ৫০০ms পর পর ছবি ১টি করে পরিবর্তন হবে)
                 let currentIdx = 0;
                 const slideInterval = setInterval(() => {
                     sliderImages[currentIdx].classList.remove('active');
@@ -362,10 +433,9 @@
                     sliderImages[currentIdx].classList.add('active');
                 }, 500); 
                 
-                // ৪. ঠিক ২ সেকেন্ড ফেক লোড হওয়ার পর আপনার দেওয়া অ্যাফিলিয়েট ইউআরএল ওপেন
                 setTimeout(() => {
                     clearInterval(slideInterval);
-                    window.location.href = "https://dghhgdb.czcliksm.com/s/4eab6e8c9bf26?sub1=newf1&preland=Casual&subsource=newxxx";
+                    window.location.href = "YOUR_AFFILIATE_LINK_HERE";
                 }, 2000);
                 
             }, 200); 
