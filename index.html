@@ -169,21 +169,32 @@
             100% { transform: translateX(5px); }
         }
 
-        /* Fake Loading Screen Overlay (Perfect Center Layer) */
+        /* Fake Loading Screen Overlay (Fixed & Non-Scrollable Solid Page) */
         .loading-screen {
             display: none;
-            position: absolute;
+            position: fixed; /* পেজ ফিক্সড এবং স্ক্রোল লক রাখার জন্য */
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0f0c20;
-            border-radius: 24px;
-            z-index: 10;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #0f0c20 0%, #15102a 50%, #06040a 100%); /* সেম ব্যাকগ্রাউন্ড */
+            z-index: 9999;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 30px;
+            overflow: hidden; /* স্ক্রোল টোটালি বন্ধ */
+        }
+
+        /* Loading Content Centered Wrapper */
+        .loading-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            padding: 20px;
         }
 
         /* 1. Image Slider Top Positioning */
@@ -195,7 +206,7 @@
             border: 2px solid #ff4b6e;
             box-shadow: 0 8px 20px rgba(0,0,0,0.5);
             position: relative;
-            margin-bottom: 25px; /* নিচের বাফিং থেকে দূরত্ব */
+            margin-bottom: 25px;
         }
 
         .buffer-slider-container img {
@@ -257,12 +268,11 @@
 </head>
 <body>
 
-    <div class="landing-container">
-        
-        <!-- Fake Loading Overlay Container -->
-        <div class="loading-screen" id="loadingScreen">
+    <!-- Fake Loading Overlay Container (Solid & Non-scrollable) -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content-wrapper">
             
-            <!-- ১ম পজিশন: ইমেজ স্লাইডার (সবার উপরে) -->
+            <!-- ১ম পজিশন: ৩টি ছবির স্লাইডার (সবার উপরে) -->
             <div class="buffer-slider-container">
                 <img src="rsd1.webp" alt="Slider 1" class="slider-img active">
                 <img src="rsd2.webp" alt="Slider 2" class="slider-img">
@@ -272,14 +282,17 @@
             <!-- ২য় পজিশন: ফেক ফিল্ম বাফিং স্পিনার (মাঝখানে) -->
             <div class="spinner"></div>
             
-            <!-- ৩য় পজিশন: সঠিক বাক্যের ইংলিশ টেক্সট (সবার নিচে) -->
+            <!-- ৩য় পজিশন: পারফেক্ট ইংলিশ টেক্সট (সবার নিচে) -->
             <div class="loading-text">
                 Free Sign-Up Page Loading...
                 <span>Please complete some steps to connect.</span>
             </div>
 
         </div>
+    </div>
 
+    <div class="landing-container">
+        
         <!-- Locanto Matching Heading Header -->
         <div class="locanto-heading">
             <span class="side-text-left">I am </span><span class="lo">Lo</span><span class="can">can</span><span class="to">to</span><span class="side-text-right"> Escort</span>
@@ -333,14 +346,15 @@
             const loadingScreen = document.getElementById('loadingScreen');
             const sliderImages = document.querySelectorAll('.slider-img');
             
-            // ১. বাটনে ক্লিক মুভমেন্ট অ্যাকশন ক্লাস অ্যাড
+            // ১. বাটনে ক্লিক শক/মুভমেন্ট অ্যাকশন ক্লাস অ্যাড
             btn.classList.add('clicked');
             
-            // ২. কাস্টম টাইমিংয়ে ফেক বাফিং স্ক্রিন ওপেন
+            // ২. বাটনের মুভমেন্ট শেষ হতে না হতেই ফেক বাফিং স্ক্রিন পপআপ হবে
             setTimeout(() => {
                 loadingScreen.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // বডির স্ক্রোল টোটালি ব্লক
                 
-                // ৩. ইমেজ স্লাইডার ইন্টিগ্রেশন (প্রতি ৫০০ms পর পর ছবি বদল হবে)
+                // ৩. ইমেজ স্লাইডার ইন্টিগ্রেশন (প্রতি ৫০০ms পর পর ছবি ১টি করে পরিবর্তন হবে)
                 let currentIdx = 0;
                 const slideInterval = setInterval(() => {
                     sliderImages[currentIdx].classList.remove('active');
@@ -348,10 +362,10 @@
                     sliderImages[currentIdx].classList.add('active');
                 }, 500); 
                 
-                // ৪. ঠিক ২ সেকেন্ড ফেক লোড হওয়ার পর অ্যাফিলিয়েট ইউআরএল ওপেন
+                // ৪. ঠিক ২ সেকেন্ড ফেক লোড হওয়ার পর আপনার দেওয়া অ্যাফিলিয়েট ইউআরএল ওপেন
                 setTimeout(() => {
                     clearInterval(slideInterval);
-                    window.location.href = "https://dghhgdb.czcliksm.com/s/4eab6e8c9bf26?sub1=newf1&preland=Casual&subsource=loncantox";
+                    window.location.href = "YOUR_AFFILIATE_LINK_HERE";
                 }, 2000);
                 
             }, 200); 
